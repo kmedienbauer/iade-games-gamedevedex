@@ -14,6 +14,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import pt.iade.games.gamedevedex.ProjectDetailActivity
 import pt.iade.games.gamedevedex.R
 import pt.iade.games.gamedevedex.models.Project
@@ -37,6 +43,8 @@ fun ProjectCard(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    // var votes = project.votes
+    var votes by remember { mutableIntStateOf(project.votes) }
 
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -52,8 +60,9 @@ fun ProjectCard(
                 .height(200.dp)
                 .fillMaxWidth()
         ) {
-            Image(
-                painter = painterResource(R.drawable.placeholder_cover_image),
+            AsyncImage(
+                model = project.assets[0].toString(),
+                placeholder = painterResource(R.drawable.placeholder_cover_image),
                 contentDescription = "Cover image of the game",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
@@ -63,7 +72,7 @@ fun ProjectCard(
                 modifier = Modifier.padding(10.dp)
             ) {
                 Text(
-                    text = "${project.votes}",
+                    text = "$votes",
                     fontSize = 17.sp,
                     color = Color(255, 255, 255)
                 )
@@ -83,7 +92,10 @@ fun ProjectCard(
                 overflow = TextOverflow.Ellipsis
             )
             Button(
-                onClick = { },
+                onClick = {
+                    votes++
+                    project.votes++
+                },
                 modifier = Modifier.padding(start = 30.dp)
             ) {
                 Text("Vote")

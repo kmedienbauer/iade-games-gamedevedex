@@ -14,9 +14,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import pt.iade.games.gamedevedex.controllers.StudentController
 import pt.iade.games.gamedevedex.models.Project
 import pt.iade.games.gamedevedex.models.Student
 import pt.iade.games.gamedevedex.ui.components.ProjectCard
@@ -38,6 +43,15 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainView() {
+    var student by remember { mutableStateOf<Student?>(null) }
+    val studentController = StudentController()
+    studentController.GetById(
+        id = 123,
+        onSuccess = { studentReq ->
+            student = studentReq
+        }
+    )
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -55,6 +69,12 @@ fun MainView() {
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
+            if (student != null) {
+                Text(student!!.name)
+            } else {
+                // TODO: Show progress circle thingy.
+            }
+
             ProjectCard(
                 modifier = Modifier.padding(vertical = 20.dp),
                 project = ProjectExample()
@@ -79,8 +99,8 @@ fun ProjectExample(): Project {
         id = 404,
         semester = 1,
         assets = listOf(
+            URI.create("https://lutris.net/media/games/screenshots/ss_649e19ff657fa518d4c2b45bed7ffdc4264a4b3a.jpg"),
             URI.create("https://cdn.mobygames.com/screenshots/12341377-among-us-windows-calling-an-emergency-meeting.png"),
-            URI.create("https://lutris.net/media/games/screenshots/ss_649e19ff657fa518d4c2b45bed7ffdc4264a4b3a.jpg")
         ),
         groupMembers = listOf(
             Student(
