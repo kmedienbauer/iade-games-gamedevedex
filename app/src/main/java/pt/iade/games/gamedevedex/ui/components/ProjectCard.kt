@@ -52,6 +52,7 @@ fun ProjectCard(
             Toast.makeText(context, project.title,
                 Toast.LENGTH_SHORT).show()
             val intent = Intent(context, ProjectDetailActivity::class.java)
+            intent.putExtra("project", project)
             context.startActivity(intent)
         }
     ) {
@@ -63,6 +64,7 @@ fun ProjectCard(
             AsyncImage(
                 model = project.assets[0].toString(),
                 placeholder = painterResource(R.drawable.placeholder_cover_image),
+                error =  painterResource(R.drawable.placeholder_cover_image),
                 contentDescription = "Cover image of the game",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
