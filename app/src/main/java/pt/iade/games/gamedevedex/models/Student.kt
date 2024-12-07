@@ -8,7 +8,7 @@ import java.net.URI
 data class Student(
     val id: Int,
     val name: String,
-    val avatar: URI,
+    val avatar: Int,
     val biography: String,
     val mood: String
 ):Parcelable

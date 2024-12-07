@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,10 +20,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pt.iade.games.gamedevedex.controllers.StudentController
 import pt.iade.games.gamedevedex.models.Project
+import pt.iade.games.gamedevedex.models.ProjectAsset
 import pt.iade.games.gamedevedex.models.Student
 import pt.iade.games.gamedevedex.ui.components.ProjectCard
 import pt.iade.games.gamedevedex.ui.theme.GamedevedexTheme
@@ -60,8 +63,8 @@ fun MainView() {
                     Text("Gamedevedex")
                 },
                 colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    containerColor = Color.DarkGray,
+                    titleContentColor = Color.White,
                 )
             )
         }
@@ -76,7 +79,8 @@ fun MainView() {
             }
 
             ProjectCard(
-                modifier = Modifier.padding(vertical = 20.dp),
+                modifier = Modifier
+                    .padding(vertical = 20.dp),
                 project = ProjectExample()
             )
         }
@@ -94,13 +98,21 @@ fun MainViewPreview() {
 fun ProjectExample(): Project {
     return Project(
         title = "Among Us",
-        votes = 2,
+        votes = 123,
         description = "Super sus.",
         id = 404,
         semester = 1,
         assets = listOf(
-            URI.create("https://lutris.net/media/games/screenshots/ss_649e19ff657fa518d4c2b45bed7ffdc4264a4b3a.jpg"),
-            URI.create("https://cdn.mobygames.com/screenshots/12341377-among-us-windows-calling-an-emergency-meeting.png"),
+            ProjectAsset(
+                id = 1,
+                assetDescription = "test",
+                assetResource = R.drawable.header_image_unboxthetruth
+            ),
+            ProjectAsset(
+                id = 1,
+                assetDescription = "test",
+                assetResource = R.drawable.header_image_unboxthetruth
+            )
         ),
         groupMembers = listOf(
             Student(
@@ -108,7 +120,14 @@ fun ProjectExample(): Project {
                 name = "João Pedro",
                 biography = "Love playing Valorant. Currently thinking of switching courses.",
                 mood = "Lucky",
-                avatar = URI.create("https://media.gettyimages.com/photos/cristiano-ronaldo-of-portugal-poses-during-the-official-fifa-world-picture-id450555852?k=6&m=450555852&s=612x612&w=0&h=aUh0DVio_ubpFtCVvMv3WLR1MVPQji1sN5PDNKvHCT4=")
+                avatar = R.drawable.default_avatar
+            ),
+            Student(
+                id = 123,
+                name = "João Pedro",
+                biography = "Love playing Valorant. Currently thinking of switching courses.",
+                mood = "Lucky",
+                avatar = R.drawable.default_avatar
             )
         )
     )
