@@ -3,6 +3,7 @@ package pt.iade.games.gamedevedex.controllers
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
+import pt.iade.games.gamedevedex.models.MoodEnum
 import pt.iade.games.gamedevedex.models.Student
 import java.net.URI
 
@@ -26,7 +27,7 @@ class StudentController {
                         name = json.obj().getString("name"),
                         avatar = json.obj().getInt("avatar"),
                         biography = json.obj().getString("biography"),
-                        mood = json.obj().getString("mood")
+                        mood = MoodEnum.valueOf(json.obj().getString("mood")),
                     ))
                 } else {
                     Log.e("STUDENTCONTROL", "GetByID Failed")

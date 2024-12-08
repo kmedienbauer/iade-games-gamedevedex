@@ -28,6 +28,7 @@ class ProjectDetailActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        //get project from intent as Parcable, using deprecated getParcelableExtra, because it the not deprecated version is not supported by all android versions, we are aiming for
         val project = intent.getParcelableExtra<Project>("project")
 
         setContent {
@@ -35,12 +36,13 @@ class ProjectDetailActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier
                     .fillMaxSize()
                     .zIndex(-5f)
-                    .windowInsetsPadding(WindowInsets.statusBars)
+                    .windowInsetsPadding(WindowInsets.statusBars) // Apply padding for status bar to hide content behind it
                 ) { innerPadding ->
                     Box (
                         modifier = Modifier.padding(innerPadding)
 
                     ){
+                        //draw project detail using the project from intent
                         ProjectDetail(project = project!!)
                     }
                 }
@@ -49,11 +51,4 @@ class ProjectDetailActivity : ComponentActivity() {
     }
 }
 
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    GamedevedexTheme {
-    }
-}
+//no preview needed, because it is used in the ProjectDetail Component

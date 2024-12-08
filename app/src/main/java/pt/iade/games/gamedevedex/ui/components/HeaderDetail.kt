@@ -46,20 +46,24 @@ fun HeaderDetail(
     lerp: Float
 )
 {
+    //set default colors and scroll colors
     val context = LocalContext.current
     val defaultColorContainer = Color(red= 1f, green = 1f, blue = 1f, alpha = 0.3f)
     val scrollColorContainer =  Color(0xFFCDF2BE)
     val defaultColorText = Color.White
     val scrollColorText =  Color.DarkGray
+    //set the lerped colors, always updated on variable lerp change (on scroll)
     var lerpColorContainer = lerp(defaultColorContainer, scrollColorContainer, lerp)
     var lerpColorText = lerp(defaultColorText, scrollColorText, lerp)
 
+    //offset to hide the upper border of the card
     Box(
         modifier = Modifier.
         offset(y = -4.dp)
 
     ) {
         Column() {
+            //card with rounded corners on the bottom
             Card(
                 shape = RoundedCornerShape(0.dp, 0.dp, 16.dp, 16.dp),
                 colors = CardDefaults.cardColors(
@@ -70,7 +74,9 @@ fun HeaderDetail(
                     .padding(horizontal = 20.dp)
                     .border(3.dp, lerpColorText, RoundedCornerShape(0.dp, 0.dp, 16.dp, 16.dp))
             ) {
+                //row to have the back button and the title
                 Row(){
+                    // button to go back to the main screen, with a back arrow (90 degrees rotated vote button), changes colors on scroll
                     Button(
                         onClick = {
                             Toast.makeText(context, "main screen",
@@ -91,6 +97,7 @@ fun HeaderDetail(
                         shape = RoundedCornerShape(0.dp),
 
                         ) {
+                        //color change on scroll
                         if(lerp > 0.3){
                             Image(
                                 painter = painterResource(id = R.drawable.votebutton),
@@ -112,6 +119,7 @@ fun HeaderDetail(
                         }
 
                     }
+                    //offset to center the title
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
